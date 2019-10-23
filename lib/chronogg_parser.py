@@ -34,7 +34,7 @@ class ChronoGGParser(object):
         self.loadSettings()
 
     def download_deal(self):
-        url = 'https://' + self.settings['chronoGGApiURL']
+        url = self.settings['chronoGGApiURL']
         headers = {
             'Content-type': 'application/json',
             'Accept': 'application/json',
@@ -42,7 +42,7 @@ class ChronoGGParser(object):
         result = self.parent.GetRequest(url,headers)
         self.last_deal = json.loads(json.loads(result)['response'])
         # Ugly but I can't use packages and make it easy for users, so ugly code it is
-        self.last_deal_end = datetime.datetime.strptime(deal['end_date'][:-1], "%Y-%m-%dT%H:%M:%S.%f" )
+        self.last_deal_end = datetime.datetime.strptime(self.last_deal['end_date'][:-1], "%Y-%m-%dT%H:%M:%S.%f" )
 
     def loadSettings(self):
         """
@@ -124,7 +124,7 @@ class ChronoGGParser(object):
     
     def is_ended(self):
         now = datetime.datetime.utcnow()
-        time_left = now - self.last_deal_end
+        time_left = self.last_deal_end - now
         # If the time delta is negative, it's ended
         return time_left < datetime.timedelta(0)
 
@@ -141,8 +141,8 @@ class ChronoGGParser(object):
     
     def get_time_left(self):
         now = datetime.datetime.utcnow()
-        time_left = now - self.last_deal_end
-        return (datetime.datetime.min + left).time().strftime('%H:%M:%S')
+        time_left = self.last_deal_end - now
+        return (datetime.datetime.min + time_left).time().strftime('%H:%M:%S')
 
 
     def sendMessage(self, data, message, command=None, cd="0"):
@@ -156,12 +156,12 @@ class ChronoGGParser(object):
             command=command,
             cd=cd,
             time_left=self.get_time_left(),
-            chrono_url='https://www.chrono.gg/' + self.setting['partnerID'],
-            game_name=self.deal['name'],
-            normal_price=self.deal['normal_price'],
-            discount=self.deal['discount'],
-            sale_price=self.deal['sale_price'],
-            platforms=self.deal['platforms'].join(', '),
+            chrono_url='https://www.chrono.gg/' + self.settings['partnerID'],
+            game_name=self.last_deal['name'],
+            normal_price=self.last_deal['normal_price'],
+            discount=self.last_deal['discount'],
+            sale_price=self.last_deal['sale_price'],
+            platforms=', '.join(self.last_deal['platforms']),
         )
         self.parent.SendStreamMessage(outputMessage)
 
