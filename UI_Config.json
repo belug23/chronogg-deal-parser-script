@@ -1,0 +1,97 @@
+{
+  "output_file": "config.json",
+
+  "liveOnly": {
+      "type": "checkbox",
+      "value": false,
+      "label": "Live Only Mode",
+      "tooltip": "Check this if you want it to only run when you are live",
+      "group" : "General"
+  },
+  "command": {
+      "type": "textbox",
+      "value": "!chronogg",
+      "label": "Show the deal command",
+      "tooltip": "Download and show the deal from chrono gg",
+      "group": "General"
+  },
+  "partnerID": {
+      "type": "textbox",
+      "value": "PartnerID",
+      "label": "Partner ID",
+      "tooltip": "Appended to chrono.gg url for the partner URL",
+      "group": "General"
+  },
+  "outputMessage": {
+      "type": "textbox",
+      "value": "Today on chrono GG you can find the game '{game_name}' for {platforms} at {sale_price} ({discount} off of {normal_price}). The time is ticking, only {time_left} if left, more information at {chrono_url}",
+      "label": "Output message",
+      "tooltip": "This is the message that is gonna be displayed in chat, refer to the readme for more info about the placeholders",
+      "group": "General"
+  },
+  "chronoGGApiURL": {
+      "type": "textbox",
+      "value": "https://api.chrono.gg/deals/",
+      "label": "ChronoGG API URL",
+      "tooltip": "This is the api url to download the deal information from",
+      "group": "Backend"
+  },
+  "Permission": {
+    "type": "dropdown",
+    "value": "everyone",
+    "items": ["everyone","moderator","subscriber","user_specific","editor"],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command",
+    "group": "Core"
+  },
+  "useCooldown": {
+      "type": "checkbox",
+      "value": true,
+      "label": "Use Cooldown",
+      "tooltip": "Enable/Disable cooldown and user cooldown",
+      "group": "Cooldown"
+  },
+  "useCooldownMessages": {
+      "type": "checkbox",
+      "value": false,
+      "label": "Use Cooldown Messages",
+      "tooltip": "Enable/Disable cooldown messages",
+      "group": "Cooldown"
+  },
+  "cooldown": {
+      "type": "numberbox",
+      "label": "Cooldown (seconds)",
+      "value": 60,
+      "tooltip": "Cooldown in seconds.",
+      "group": "Cooldown"
+  },
+  "onCooldown": {
+      "type": "textbox",
+      "value": "{user}, {command} is still on cooldown for {cd} minutes!",
+      "label": "Cooldown Response",
+      "tooltip": "The message that the bot will display when the command is on cooldown. \r\n {user} = Username\r\n {cd} = time remaining",
+      "group": "Cooldown"
+  },
+  "userCooldown": {
+      "type": "numberbox",
+      "label": "User Cooldown (seconds)",
+      "value": 180,
+      "tooltip": "User cooldown in seconds.",
+      "group": "Cooldown"
+  },
+  "onUserCooldown": {
+      "type": "textbox",
+      "value": "{user}, {command} is still on user cooldown for {cd} minutes!",
+      "label": "User Cooldown Response",
+      "tooltip": "The message that the bot will display when the command is on user cooldown. \r\n {user} = Username\r\n {cd} = time remaining",
+      "group": "Cooldown"
+  },
+  "openReadMe": {
+      "type": "button",
+      "label": "Open 'Readme Me' file",
+      "tooltip": "Opens the 'Readme.txt' for this script.",
+      "function": "OpenReadMe",
+      "wsevent": "",
+      "group": ""
+  }
+}
