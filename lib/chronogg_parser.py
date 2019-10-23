@@ -65,7 +65,7 @@ class ChronoGGParser(object):
                 "userCooldown": 180,
                 "onUserCooldown": "{user}, {command} is still on user cooldown for {cd} minutes!",
                 "chronoGGApiURL": "https://api.chrono.gg/deals/",
-                "outputMessage": "Today on chrono GG you can find the game '{game_name}' for {platforms} at {sale_price} ({discount} off of {normal_price}). The time is ticking, only {time_left} if left, more information at {chrono_url}"
+                "outputMessage": "Today on chrono GG you can find the game '{game_name}' for {platforms} at ${sale_price} ({discount} off of ${normal_price}). The time is ticking, only {time_left} if left, more information at {chrono_url}"
             }
 
     def scriptToggled(self, state):

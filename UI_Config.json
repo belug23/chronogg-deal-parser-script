@@ -24,7 +24,7 @@
   },
   "outputMessage": {
       "type": "textbox",
-      "value": "Today on chrono GG you can find the game '{game_name}' for {platforms} at {sale_price} ({discount} off of {normal_price}). The time is ticking, only {time_left} if left, more information at {chrono_url}",
+      "value": "Today on chrono GG you can find the game '{game_name}' for {platforms} at ${sale_price} ({discount} off of ${normal_price}). The time is ticking, only {time_left} if left, more information at {chrono_url}",
       "label": "Output message",
       "tooltip": "This is the message that is gonna be displayed in chat, refer to the readme for more info about the placeholders",
       "group": "General"
