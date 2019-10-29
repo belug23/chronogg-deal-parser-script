@@ -29,6 +29,20 @@
       "tooltip": "This is the message that is gonna be displayed in chat, refer to the readme for more info about the placeholders",
       "group": "General"
   },
+  "autoPost": {
+      "type": "checkbox",
+      "value": false,
+      "label": "Auto post message",
+      "tooltip": "Check this if you want the bot to post the message from time to time",
+      "group" : "General"
+  },
+  "autoPostTimer": {
+      "type": "numberbox",
+      "label": "Auto post timer (Minutes)",
+      "value": 10,
+      "tooltip": "The time in minutes between each bot posts.",
+      "group": "General"
+  },
   "chronoGGApiURL": {
       "type": "textbox",
       "value": "https://api.chrono.gg/deals/",

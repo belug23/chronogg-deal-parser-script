@@ -26,6 +26,7 @@ class ChronoGGParser(object):
         self.last_deal_end = None
         # Store the last parsed deal
         self.last_deal = None
+        self.reset_time = 0
 
     def setParent(self, parent):
         self.parent = parent
@@ -58,6 +59,8 @@ class ChronoGGParser(object):
                 "command": "!chronogg",
                 "partnerID": "PartnerID",
                 "permission": "Everyone",
+                "autoPost": False,
+                "autoPostTimer": 10,
                 "useCooldown": True,
                 "useCooldownMessages": False,
                 "cooldown": 60,
@@ -88,14 +91,14 @@ class ChronoGGParser(object):
         return
     
     def canParseData(self, data):
+        return (data.IsChatMessage() and self.is_live())
+
+    def is_live(self):
         return (
-            data.IsChatMessage() and
-            (
-                (self.settings["liveOnly"] and self.parent.IsLive()) or 
-                (not self.settings["liveOnly"])
-            )
+            (self.settings["liveOnly"] and self.parent.IsLive()) or 
+            (not self.settings["liveOnly"])
         )
-    
+
     def isOnCoolDown(self, data, command):
         if (
             self.settings["useCooldown"] and
@@ -127,7 +130,6 @@ class ChronoGGParser(object):
         time_left = self.last_deal_end - now
         # If the time delta is negative, it's ended
         return time_left < datetime.timedelta(0)
-
     
     def parseDeal(self, data, command):
         if not self.last_deal or self.is_ended():
@@ -143,7 +145,6 @@ class ChronoGGParser(object):
         now = datetime.datetime.utcnow()
         time_left = self.last_deal_end - now
         return (datetime.datetime.min + time_left).time().strftime('%H:%M:%S')
-
 
     def sendMessage(self, data, message, command=None, cd="0"):
         if command is None:
@@ -167,9 +168,14 @@ class ChronoGGParser(object):
 
     def tick(self):
         """
-        not used, here for maybe future projects.
+            If the bot post with a timer, send the command automatically
         """
-        return
+        if self.settings['autoPost'] and self.is_live():
+            current_time = datetime.time.time()
+
+            if(current_time >= self.reset_time):
+                self.reset_time = currentTime + (self.settings['autoPostTimer'] * 60)
+                return self.parseDeal(FakeData)
     
     def openReadMe(self):
         location = os.path.join(os.path.dirname(__file__), "README.txt")
@@ -180,3 +186,7 @@ class ChronoGGParser(object):
             opener ="open" if sys.platform == "darwin" else "xdg-open"
             subprocess.call([opener, location])
         return
+
+
+class FakeData(Object):
+    UserName = 'Bot'
