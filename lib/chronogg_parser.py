@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import datetime
+import time
 
 
 class ChronoGGParser(object):
@@ -171,7 +172,7 @@ class ChronoGGParser(object):
             If the bot post with a timer, send the command automatically
         """
         if self.settings['autoPost'] and self.is_live():
-            current_time = datetime.time.time()
+            current_time = time.time()
 
             if(current_time >= self.reset_time):
                 self.reset_time = currentTime + (self.settings['autoPostTimer'] * 60)
