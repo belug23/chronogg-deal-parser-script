@@ -17,7 +17,7 @@ class ChronoGGParser(object):
     script_name = "Chrono GG deal parser"
     config_file = "config.json"
     application_name = 'Chrono GG deal parser'
-    version = '1.0.0'
+    version = '1.1.0'
 
     def __init__(self):
         self.base_path = os.path.dirname(__file__)
@@ -34,6 +34,7 @@ class ChronoGGParser(object):
 
     def setConfigs(self):
         self.loadSettings()
+        self.reset_time = time.time() + (self.settings['autoPostTimer'] * 60)
 
     def download_deal(self):
         url = self.settings['chronoGGApiURL']
@@ -133,6 +134,7 @@ class ChronoGGParser(object):
         return time_left < datetime.timedelta(0)
     
     def parseDeal(self, data, command):
+        self.reset_time = time.time() + (self.settings['autoPostTimer'] * 60)
         if not self.last_deal or self.is_ended():
             self.download_deal()
         self.sendMessage(data, self.settings['outputMessage'], command)
@@ -175,7 +177,6 @@ class ChronoGGParser(object):
             current_time = time.time()
 
             if(current_time >= self.reset_time):
-                self.reset_time = current_time + (self.settings['autoPostTimer'] * 60)
                 return self.parseDeal(FakeData, self.settings["command"])
     
     def openReadMe(self):
