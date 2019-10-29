@@ -175,7 +175,7 @@ class ChronoGGParser(object):
             current_time = time.time()
 
             if(current_time >= self.reset_time):
-                self.reset_time = currentTime + (self.settings['autoPostTimer'] * 60)
+                self.reset_time = current_time + (self.settings['autoPostTimer'] * 60)
                 return self.parseDeal(FakeData)
     
     def openReadMe(self):
