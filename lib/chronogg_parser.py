@@ -188,5 +188,5 @@ class ChronoGGParser(object):
         return
 
 
-class FakeData(Object):
+class FakeData(object):
     UserName = 'Bot'
