@@ -176,7 +176,7 @@ class ChronoGGParser(object):
 
             if(current_time >= self.reset_time):
                 self.reset_time = current_time + (self.settings['autoPostTimer'] * 60)
-                return self.parseDeal(FakeData)
+                return self.parseDeal(FakeData, self.settings["command"])
     
     def openReadMe(self):
         location = os.path.join(os.path.dirname(__file__), "README.txt")
